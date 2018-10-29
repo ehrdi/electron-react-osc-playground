@@ -1,7 +1,8 @@
 import React from 'react'
 import { render } from 'react-dom'
 import { ipcRenderer } from 'electron'
-const createServer = require('electron').remote.require('./testmodule')
+const createServer = require('electron').remote.require('./createserver')
+const getIPAddresses = require('electron').remote.require('./getip')
 
 class App extends React.Component {
     constructor(props) {
@@ -58,13 +59,28 @@ class App extends React.Component {
 
     createNewServer(port) {
         const newServer = createServer(port);
-        newServer.on("message", function (oscMessage, timetag, info) {
+        const that = this;
+
+        newServer.on("ready", () => {
+            const ipAddresses = getIPAddresses();
+            ipAddresses.forEach(function (address) {
+                console.log(" Host:", address + ", Port:", newServer.options.localPort);
+            });
+        });
+
+        newServer.on("message", (oscMessage, timetag, info) => {
             console.log("OSC Message - UDP("+newServer.options.localPort+"): ", oscMessage);
+            const msgs = that.state.oscMessages;
+            msgs.push(oscMessage);
+            that.setState({
+                oscMessages: msgs
+            })
         });
         
-        newServer.on("error", function (err) {
+        newServer.on("error", (err) => {
             console.log(err);
         });
+        newServer.open();
     }
 
     render() {

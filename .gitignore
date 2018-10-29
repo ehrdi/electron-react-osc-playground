@@ -5,6 +5,7 @@ logs/
 *.log
 npm-debug.log*
 .npm
+package-lock.json
 *.7z
 *.dmg
 *.gz

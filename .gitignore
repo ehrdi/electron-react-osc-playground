@@ -1,0 +1,28 @@
+builds/
+dist/
+node_modules/
+logs/
+*.log
+npm-debug.log*
+.npm
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+*.ai
+*.eps
+*.psd
+
+# Windows & Mac file caches #
+#############################
+.DS_Store
+Thumbs.db
+ehthumbs.db
+
+# Windows shortcuts #
+#####################
+*.lnk

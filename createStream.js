@@ -1,6 +1,6 @@
 const osc = require('osc');
 
-const createServer = function(port) {
+const createStream = function(port) {
     const newPort = new osc.UDPPort({
         localAddress: "0.0.0.0",
         localPort: port,
@@ -10,4 +10,4 @@ const createServer = function(port) {
     return newPort;
 }
 
-module.exports = createServer;
+module.exports = createStream;

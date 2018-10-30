@@ -107,6 +107,7 @@ class OscManager extends React.Component {
               <br /><br />
               <h2>OSC Messages</h2>
               {oscMessages}
+              <button onClick={() => this.props.closeManager(this.props.id)}>Close Manager</button>
               <hr />
           </div>  
         );

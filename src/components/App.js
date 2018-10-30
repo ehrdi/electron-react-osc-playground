@@ -26,8 +26,8 @@ class App extends React.Component {
         
         let key = generateKey(1, 50);
         managers.push({
-            manager: <OscManager closeManager={this.closeManager} key={key} />,
-            key: key
+            manager: <OscManager closeManager={this.closeManager} key={key} id={key} />,
+            id: key
         })
 
         this.setState({
@@ -35,20 +35,22 @@ class App extends React.Component {
         })
     }
 
-    closeManager(key) {
-        const managers = this.state.managers;
-        let removeIndex = null;
+    closeManager(id) {
+        let managers = this.state.managers;
+
         managers.map( (manager, index) => {
-            if(manager.key === key) {
-                removeIndex = index;
+            if(manager.id === id) {
+                if(managers.length > 1) {
+                    managers.splice(index, 1);
+                } else {
+                    managers = [];
+                }
             }
         })
-        if(removeIndex && removeIndex > 0) {
-            managers.splice(removeIndex, 1);
-            this.setState({
-                managers: managers
-            })
-        }
+        
+        this.setState({
+            managers: managers
+        })
     }
 
     render() {
